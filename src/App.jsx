@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import AnswerInputs from './AnswerInputs';
 // API - https://opentdb.com/api.php?amount=5&category=11&type=multiple
 function App() {
   // create state to hold my quiz data
   const [quizData, setQuizData] = useState([]);
   const [score, setScore] = useState(0);
   const [formData, setFormData] = useState();
-  const [submitted, setSubmitted] = useState(false);
+  const [newQuiz, setNewQuiz] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     fetch('data.json')
@@ -13,86 +15,52 @@ function App() {
       .then((data) => setQuizData(data.results));
   }, []);
 
-  function handleChange(event) {
-    const { name, value, dataset } = event.target;
-    setFormData((prevFormData) => {
-      // Set score if answer is true
-      if (dataset.answer === 'true') {
-        setScore(score + 1);
-      }
-      return {
-        ...prevFormData,
-        [name]: {
-          answer: value,
-          data: dataset.answer,
-        },
-      };
-    });
-  }
   function handleSubmit(event) {
+    console.log('event', event);
     event.preventDefault();
     console.log('formData', formData);
-    setSubmitted(true);
+    setIsSubmitted(true);
   }
+
+  // Reformat quiz data to randomize answers
+  // TODO: randomize answers
+  const newQuizData = quizData.map((data) => {
+    return {
+      question: data.question,
+      answerOptions: [
+        { answerText: data.correct_answer, isCorrect: true },
+        {
+          answerText: data.incorrect_answers[0],
+          isCorrect: false,
+        },
+        {
+          answerText: data.incorrect_answers[1],
+          isCorrect: false,
+        },
+        {
+          answerText: data.incorrect_answers[2],
+          isCorrect: false,
+        },
+      ],
+    };
+  });
+
   //map over quiz data to get questions
-  const quizQuestions = quizData.map((quizItem, index) => {
+  const quizLayout = newQuizData.map((data, index) => {
     return (
       <div className="question-el">
-        <h3 className="question-item">{quizItem.question}</h3>
-        <div className="answer-item">
-          <input
-            id={quizItem.correct_answer}
-            data-answer={true}
-            type="radio"
-            name={index}
-            value={quizItem.correct_answer}
-            onChange={handleChange}
-          />
-          <label htmlFor={quizItem.correct_answer}>
-            {quizItem.correct_answer}
-          </label>
-        </div>
-        <div className="answer-item">
-          <input
-            id={quizItem.incorrect_answers[0]}
-            data-answer={false}
-            type="radio"
-            name={index}
-            value={quizItem.incorrect_answers[0]}
-            onChange={handleChange}
-          />
-          <label htmlFor={quizItem.incorrect_answers[0]}>
-            {quizItem.incorrect_answers[0]}
-          </label>
-        </div>
-        <div className="answer-item">
-          <input
-            id={quizItem.incorrect_answers[1]}
-            className="answer-item"
-            data-answer={false}
-            type="radio"
-            name={index}
-            value={quizItem.incorrect_answers[1]}
-            onChange={handleChange}
-          />
-          <label htmlFor={quizItem.incorrect_answers[1]}>
-            {quizItem.incorrect_answers[1]}
-          </label>
-        </div>
-        <div className="answer-item">
-          <input
-            id={quizItem.incorrect_answers[2]}
-            className="answer-item"
-            data-answer={false}
-            type="radio"
-            name={index}
-            value={quizItem.incorrect_answers[2]}
-            onChange={handleChange}
-          />
-          <label htmlFor={quizItem.incorrect_answers[2]}>
-            {quizItem.incorrect_answers[2]}
-          </label>
-        </div>
+        <h3 className="question-item">{data.question}</h3>
+        <AnswerInputs
+          answer={data.answerOptions}
+          index={index}
+          correct={data.answerOptions}
+          score={score}
+          setScore={setScore}
+          formData={formData}
+          setFormData={setFormData}
+          setIsSubmitted={setIsSubmitted}
+          isSubmitted={isSubmitted}
+        />
       </div>
     );
   });
@@ -102,8 +70,8 @@ function App() {
       <h1 className="page-title">Trivia Time</h1>
       <div className="quiz-el">
         <form onSubmit={handleSubmit}>
-          {quizQuestions}
-          {submitted ? (
+          {quizLayout}
+          {isSubmitted ? (
             <>
               <button className="play-again-btn">Play Again</button>
               <h3 className="title">You scored {score}/5 correct answers</h3>
