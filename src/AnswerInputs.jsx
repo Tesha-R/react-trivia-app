@@ -25,26 +25,20 @@ function AnswerInputs({
     });
   }
   function highlightAnswers(answerValue, index) {
-    //   console.log('formData', formData);
-    // console.log('answerValue', answerValue);
-    // if (
-    //   formData[index].answerItem === answerValue &&
-    //   formData[index].data &&
-    //   isSubmitted
-    // ) {
-    //   console.log('answer-right');
-    //   return 'answer-right';
-    // }
-    // if (
-    //   formData[index].answerItem === answerValue &&
-    //   !formData[index].data &&
-    //   isSubmitted
-    // ) {
-    //   return 'wrong-right';
-    // }
-    // if (answerValue) {
-    //   return 'answer-right';
-    // }
+    if (
+      isSubmitted &&
+      formData[index]?.answerItem === answerValue &&
+      formData[index]?.data === 'true'
+    ) {
+      return 'right-answer';
+    }
+    if (
+      isSubmitted &&
+      formData[index]?.answerItem === answerValue &&
+      formData[index]?.data === 'false'
+    ) {
+      return 'wrong-answer';
+    }
   }
   return (
     <>
@@ -60,7 +54,7 @@ function AnswerInputs({
         />
         <label
           htmlFor={answer[0].answerText}
-          className={highlightAnswers(answer[0].answerText)}
+          className={highlightAnswers(answer[0].answerText, index)}
         >
           {answer[0].answerText}
         </label>
@@ -74,7 +68,12 @@ function AnswerInputs({
           onChange={handleChange}
           data-answer={answer[1].isCorrect}
         />
-        <label htmlFor={answer[1].answerText}>{answer[1].answerText}</label>
+        <label
+          htmlFor={answer[1].answerText}
+          className={highlightAnswers(answer[1].answerText, index)}
+        >
+          {answer[1].answerText}
+        </label>
       </div>
       <div className="answer-item">
         <input
@@ -85,7 +84,12 @@ function AnswerInputs({
           onChange={handleChange}
           data-answer={answer[2].isCorrect}
         />
-        <label htmlFor={answer[2].answerText}>{answer[2].answerText}</label>
+        <label
+          htmlFor={answer[2].answerText}
+          className={highlightAnswers(answer[2].answerText, index)}
+        >
+          {answer[2].answerText}
+        </label>
       </div>
       <div className="answer-item">
         <input
@@ -96,7 +100,12 @@ function AnswerInputs({
           onChange={handleChange}
           data-answer={answer[3].isCorrect}
         />
-        <label htmlFor={answer[3].answerText}>{answer[3].answerText}</label>
+        <label
+          htmlFor={answer[3].answerText}
+          className={highlightAnswers(answer[3].answerText, index)}
+        >
+          {answer[3].answerText}
+        </label>
       </div>
     </>
   );

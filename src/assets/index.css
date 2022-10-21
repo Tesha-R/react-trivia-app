@@ -66,11 +66,11 @@ input[type=radio]:checked+label {
 }
 
 .right-answer {
-  background-color: #94D7A2;
+  background-color: #94D7A2 !important;
 }
 
 .wrong-answer {
-  background-color: #F8BCBC;
+  background-color: #F8BCBC !important;
 }
 
 input[type=radio]+label:hover {
