@@ -43,10 +43,10 @@ body {
 
 .answer-item {
   list-style: none;
-  display: inline;
+  display: inline-block;
+  margin: 0 10px 10px 0;
   font-size: 1.15rem;
   text-align: center;
-  margin-right: 10px;
 }
 
 input[type=radio] {
