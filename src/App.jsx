@@ -11,7 +11,7 @@ function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch('data.json')
+    fetch('https://opentdb.com/api.php?amount=5&category=11&type=multiple')
       .then((res) => res.json())
       .then((data) => {
         //    Reformat data and randomize answers
