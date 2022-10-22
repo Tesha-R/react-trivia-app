@@ -1,17 +1,44 @@
 import { useState, useEffect } from 'react';
+import { decode } from 'html-entities';
 import AnswerInputs from './AnswerInputs';
 // API - https://opentdb.com/api.php?amount=5&category=11&type=multiple
+// temp data = data.json
 function App() {
   const [quizData, setQuizData] = useState([]);
   const [score, setScore] = useState(0);
-  const [formData, setFormData] = useState(true);
+  const [formData, setFormData] = useState('');
   const [newQuiz, setNewQuiz] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch('data.json')
+    fetch('https://opentdb.com/api.php?amount=5&category=11&type=multiple')
       .then((res) => res.json())
-      .then((data) => setQuizData(data.results));
+      .then((data) => {
+        //    Reformat data and randomize answers
+        const newQuizData = data.results.map((data) => {
+          return {
+            question: decode(data.question),
+            answerOptions: shuffleAnswers([
+              { answerText: data.correct_answer, isCorrect: true },
+              {
+                answerText: data.incorrect_answers[0],
+                isCorrect: false,
+              },
+              {
+                answerText: data.incorrect_answers[1],
+                isCorrect: false,
+              },
+              {
+                answerText: data.incorrect_answers[2],
+                isCorrect: false,
+              },
+            ]),
+          };
+        });
+        // console.log('data', newQuizData);
+        setQuizData(newQuizData);
+      });
+
     return () => {
       setFormData(true);
     };
@@ -23,10 +50,12 @@ function App() {
     setIsSubmitted(true);
   }
 
-  function handleNewQuiz() {
+  function handleNewQuiz(event) {
+    //event.preventDefault();
+    // setIsSubmitted(false);
     setNewQuiz(true);
   }
-  // Randomize answers
+  // Randomize order of answers displayed
   function shuffleAnswers(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const random = Math.floor(Math.random() * (i + 1));
@@ -37,30 +66,8 @@ function App() {
     return arr;
   }
 
-  // Reformat quiz data and randomize answers
-  const newQuizData = quizData.map((data) => {
-    return {
-      question: data.question,
-      answerOptions: [
-        { answerText: data.correct_answer, isCorrect: true },
-        {
-          answerText: data.incorrect_answers[0],
-          isCorrect: false,
-        },
-        {
-          answerText: data.incorrect_answers[1],
-          isCorrect: false,
-        },
-        {
-          answerText: data.incorrect_answers[2],
-          isCorrect: false,
-        },
-      ],
-    };
-  });
-
-  //Map over quiz data and render form
-  const quizLayout = newQuizData.map((data, index) => {
+  //Map over quiz data and render data
+  const quizLayout = quizData.map((data, index) => {
     return (
       <div className="question-el">
         <h3 className="question-item">{data.question}</h3>

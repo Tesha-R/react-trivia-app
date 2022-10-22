@@ -45,7 +45,6 @@ body {
   display: inline;
   font-size: 1.15rem;
   text-align: center;
-  background-color: #F5F7FB;
   margin-right: 10px;
 }
 
@@ -54,23 +53,28 @@ input[type=radio] {
 }
 
 input[type=radio]+label {
+  background-color: #F5F7FB;
   border: 1px solid #4D5B9E;
   padding: 5px 15px;
   border-radius: 10px;
   color: #293264;
+  cursor: pointer;
 }
 
 
 input[type=radio]:checked+label {
   background-color: #D6DBF5;
+  border: 1px solid #D6DBF5;
 }
 
 .right-answer {
   background-color: #94D7A2 !important;
+  border: 1px solid #94D7A2 !important;
 }
 
 .wrong-answer {
   background-color: #F8BCBC !important;
+  border: 1px solid #F8BCBC !important;
 }
 
 input[type=radio]+label:hover {
@@ -101,4 +105,16 @@ button {
 button:hover {
   background-color: #44518F;
   cursor: pointer;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .quiz-el {
+    width: 90vw;
+  }
+
+  .answer-item {
+    display: block;
+    margin-bottom: 20px;
+  }
 }

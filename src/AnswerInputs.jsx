@@ -40,6 +40,7 @@ function AnswerInputs({
       return 'wrong-answer';
     }
   }
+
   return (
     <>
       <div className="answer-item">
