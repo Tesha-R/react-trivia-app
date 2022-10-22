@@ -11,7 +11,7 @@ function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=5&category=11&type=multiple')
+    fetch('data.json')
       .then((res) => res.json())
       .then((data) => {
         //    Reformat data and randomize answers
@@ -19,17 +19,17 @@ function App() {
           return {
             question: decode(data.question),
             answerOptions: shuffleAnswers([
-              { answerText: data.correct_answer, isCorrect: true },
+              { answerText: decode(data.correct_answer), isCorrect: true },
               {
-                answerText: data.incorrect_answers[0],
+                answerText: decode(data.incorrect_answers[0]),
                 isCorrect: false,
               },
               {
-                answerText: data.incorrect_answers[1],
+                answerText: decode(data.incorrect_answers[1]),
                 isCorrect: false,
               },
               {
-                answerText: data.incorrect_answers[2],
+                answerText: decode(data.incorrect_answers[2]),
                 isCorrect: false,
               },
             ]),

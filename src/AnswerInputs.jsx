@@ -8,7 +8,7 @@ function AnswerInputs({
   isSubmitted,
 }) {
   function handleChange(event) {
-    const { name, value, dataset, id, checked } = event.target;
+    const { name, value, dataset, checked } = event.target;
     console.log(formData);
 
     if (dataset.answer === 'true' && checked) {

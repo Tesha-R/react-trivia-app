@@ -27,7 +27,8 @@ body {
 .answers-item,
 .answer-active,
 .page-title,
-.title {
+.title,
+.main-el-title {
   color: #293264
 }
 
@@ -91,7 +92,8 @@ input[type=radio]+label:hover {
   text-align: center;
 }
 
-button {
+button,
+.trivia-start-btn a {
   background-color: #4D5B9E;
   color: #ffffff;
   min-width: 100px;
@@ -100,12 +102,24 @@ button {
   min-width: 150px;
   padding: 15px 20px;
   font-size: 1.35rem;
+  text-decoration: none;
 }
 
 button:hover {
   background-color: #44518F;
   cursor: pointer;
 }
+
+.main-el-title {
+  font-size: 2.5rem;
+}
+
+.main-el {
+  width: 50vw;
+  margin: 10rem auto 0;
+  text-align: center;
+}
+
 
 
 @media only screen and (max-width: 800px) {
