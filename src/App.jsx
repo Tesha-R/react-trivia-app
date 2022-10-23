@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { decode } from 'html-entities';
+import { redirect, useNavigate } from 'react-router-dom';
 import AnswerInputs from './AnswerInputs';
 // API - https://opentdb.com/api.php?amount=5&category=11&type=multiple
 // temp data = data.json
@@ -52,8 +53,8 @@ function App() {
 
   function handleNewQuiz(event) {
     //event.preventDefault();
-    // setIsSubmitted(false);
     setNewQuiz(true);
+    return redirect('/App');
   }
   // Randomize order of answers displayed
   function shuffleAnswers(arr) {
