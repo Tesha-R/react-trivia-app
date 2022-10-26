@@ -2,8 +2,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background-color: #F5F7FB;
-  background-image: url('blobs.png');
+  background-color: #f5f7fb;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
@@ -15,7 +14,7 @@ body {
 }
 
 .question-el {
-  border-bottom: 1px solid #DBDEF0;
+  border-bottom: 1px solid #dbdef0;
   padding: 2rem 0;
 }
 
@@ -29,17 +28,16 @@ body {
 .page-title,
 .title,
 .main-el-title {
-  color: #293264
+  color: #293264;
 }
 
 .page-title {
   font-size: 1.75rem;
   text-align: center;
   font-weight: 800;
-  background-color: #D6DBF5;
+  background-color: #d6dbf5;
   margin: 0;
 }
-
 
 .answer-item {
   list-style: none;
@@ -49,37 +47,36 @@ body {
   text-align: center;
 }
 
-input[type=radio] {
+input[type="radio"] {
   display: none;
 }
 
-input[type=radio]+label {
-  background-color: #F5F7FB;
-  border: 1px solid #4D5B9E;
+input[type="radio"]+label {
+  background-color: #f5f7fb;
+  border: 1px solid #4d5b9e;
   padding: 5px 15px;
   border-radius: 10px;
   color: #293264;
   cursor: pointer;
 }
 
-
-input[type=radio]:checked+label {
-  background-color: #D6DBF5;
-  border: 1px solid #D6DBF5;
+input[type="radio"]:checked+label {
+  background-color: #d6dbf5;
+  border: 1px solid #d6dbf5;
 }
 
 .right-answer {
-  background-color: #94D7A2 !important;
-  border: 1px solid #94D7A2 !important;
+  background-color: #94d7a2 !important;
+  border: 1px solid #94d7a2 !important;
 }
 
 .wrong-answer {
-  background-color: #F8BCBC !important;
-  border: 1px solid #F8BCBC !important;
+  background-color: #f8bcbc !important;
+  border: 1px solid #f8bcbc !important;
 }
 
-input[type=radio]+label:hover {
-  background-color: #D6DBF5;
+input[type="radio"]+label:hover {
+  background-color: #d6dbf5;
 }
 
 .quiz-submit-btn,
@@ -94,8 +91,8 @@ input[type=radio]+label:hover {
 
 button,
 .trivia-start-btn a {
-  background-color: #4D5B9E;
-  color: #ffffff;
+  background-color: #4d5b9e;
+  color: #fff;
   min-width: 100px;
   border: navajowhite;
   border-radius: 5px;
@@ -106,8 +103,17 @@ button,
 }
 
 button:hover {
-  background-color: #44518F;
+  background-color: #44518f;
   cursor: pointer;
+}
+
+.settings-btn {
+  padding: 5px 10px;
+  font-size: 1rem;
+  min-width: 75px;
+  position: relative;
+  top: -5px;
+  left: 20px;
 }
 
 .main-el-title {
@@ -120,7 +126,24 @@ button:hover {
   text-align: center;
 }
 
+.settings-el {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  margin: 2rem 0;
+}
 
+.settings-el label {
+  font-size: 1.15rem;
+}
+
+.form-el {
+  font-size: 1.25rem;
+  border-radius: 5px;
+  border: 1px solid #4d5b9e;
+  padding: 5px;
+  width: 175px;
+}
 
 @media only screen and (max-width: 800px) {
   .quiz-el {
