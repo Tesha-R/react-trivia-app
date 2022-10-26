@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {decode} from 'html-entities';
+import { decode } from 'html-entities';
 import AnswerInputs from './AnswerInputs';
 import Root from './Root';
 
@@ -55,16 +55,16 @@ function App() {
   function handleSubmitQuiz(event) {
     event.preventDefault();
     setIsQuizComplete(true);
-    console.log("quizResults", quizResults);
-    console.log("isQuizLoaded", isQuizLoaded);
+    console.log('quizResults', quizResults);
+    console.log('isQuizLoaded', isQuizLoaded);
   }
 
   function handleLoadQuiz(event) {
     setIsQuizComplete(false);
     setIsQuizLoaded(true);
     setScore(0);
-    console.log("isQuizLoaded", isQuizLoaded);
-    console.log("isQuizComplete", isQuizComplete);
+    console.log('isQuizLoaded', isQuizLoaded);
+    console.log('isQuizComplete', isQuizComplete);
   }
 
   // Randomize order of answers displayed
