@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { decode } from 'html-entities';
 import AnswerInputs from './AnswerInputs';
 import Root from './Root';
@@ -11,13 +11,13 @@ function App() {
   const [quizData, setQuizData] = useState([]); // Quiz data from API
   const [score, setScore] = useState(0); // Quiz score
   const [quizResults, setQuizResults] = useState(''); // Results from quiz
-  const [isQuizLoaded, setIsQuizLoaded] = useState(false); // Generate new quiz from API
-  const [isQuizComplete, setIsQuizComplete] = useState(false); // Track if quiz is over
   const [quizSettings, setQuizSettings] = useState(initialValues); // Apply quiz url parameters
+  const [isQuizStarted, setIsQuizStarted] = useState(false); // Track if quiz has started
+  const [isQuizComplete, setIsQuizComplete] = useState(false); // Track if quiz is over
 
   //https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple
 
-  useEffect(() => {
+  function getData() {
     fetch(
       `https://opentdb.com/api.php?amount=${quizSettings.questionAmount}&difficulty=${quizSettings.difficultyLevel}&type=multiple`
     )
@@ -46,25 +46,30 @@ function App() {
         });
         setQuizData(newQuizData);
       });
-  }, [isQuizLoaded]);
+  }
 
-  function handleStartQuiz() {
-    setIsQuizLoaded(false);
+  function handleSettings() {
+    setIsQuizStarted(false);
+  }
+
+  function handleStartQuiz(event) {
+    event.preventDefault();
+    setIsQuizStarted(true);
+    setIsQuizComplete(false);
+    setScore(0);
+    getData();
   }
 
   function handleSubmitQuiz(event) {
     event.preventDefault();
     setIsQuizComplete(true);
-    console.log('quizResults', quizResults);
-    console.log('isQuizLoaded', isQuizLoaded);
   }
 
-  function handleLoadQuiz(event) {
+  function handleNewQuiz(event) {
+    event.preventDefault();
     setIsQuizComplete(false);
-    setIsQuizLoaded(true);
     setScore(0);
-    console.log('isQuizLoaded', isQuizLoaded);
-    console.log('isQuizComplete', isQuizComplete);
+    getData();
   }
 
   // Randomize order of answers displayed
@@ -107,9 +112,9 @@ function App() {
 
   return (
     <>
-      {!isQuizLoaded ? (
+      {!isQuizStarted ? (
         <Root
-          quizStart={handleLoadQuiz}
+          quizStart={handleStartQuiz}
           quizSettings={quizSettings}
           setQuizSettings={setQuizSettings}
         />
@@ -118,7 +123,7 @@ function App() {
           <div>
             <h1 className="page-title">
               Trivia Time
-              <button className="settings-btn" onClick={handleStartQuiz}>
+              <button className="settings-btn" onClick={handleSettings}>
                 Settings
               </button>
             </h1>
@@ -138,7 +143,7 @@ function App() {
                     <button
                       type="reset"
                       className="play-again-btn"
-                      onClick={handleLoadQuiz}
+                      onClick={handleNewQuiz}
                     >
                       Play Again
                     </button>

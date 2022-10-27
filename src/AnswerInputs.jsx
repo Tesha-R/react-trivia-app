@@ -10,11 +10,9 @@ function AnswerInputs({
 }) {
   function handleChange(event) {
     const { name, value, dataset, checked } = event.target;
-    console.log('quizResults onChange', quizResults);
 
     if (checked && dataset.answer === 'true') {
       setScore(score + 1);
-      console.log('score', score);
     }
     setQuizResults((prevQuizResults) => {
       return {
